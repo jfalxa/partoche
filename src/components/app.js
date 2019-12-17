@@ -13,12 +13,10 @@ const App = () => {
         display: 'flex',
         flexDirection: 'column',
         width: '100vw',
-        height: '100vh',
-        justifyContent: 'center',
-        alignItems: 'center'
+        height: '100vh'
       }}
     >
-      <Score css={{ marginTop: 'auto' }}>
+      <Score css={{ margin: 'auto' }}>
         <Staff>
           <GClef />
           {keys.map((key, i) => (
@@ -30,7 +28,7 @@ const App = () => {
       <Keyboard
         value={keys}
         onChange={setKeys}
-        css={{ width: '100%', height: 150, marginTop: 'auto' }}
+        css={{ width: '100%', height: '20%' }}
       />
     </div>
   )
