@@ -1,11 +1,3 @@
-// prettier-ignore
-export const CHORDS = [
-  '- No chord',
-  '- 2 note chord',
-  '- 3 note chord',
-  '- 4 note chord'
-]
-
 export function listChords(scale, intervals = 0) {
   return scale.map((root, degree) => {
     const chord = [root]

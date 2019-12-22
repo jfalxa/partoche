@@ -1,6 +1,7 @@
 import React from 'react'
+import { number, arrayOf, shape } from 'prop-types'
+
 import { WholeNote } from './notes'
-import { number, arrayOf } from 'prop-types'
 
 function collides(a, b) {
   if (!a || !b) return false
@@ -23,5 +24,5 @@ export const Chord = ({ tick, notes }) => (
 
 Chord.propTypes = {
   tick: number,
-  notes: arrayOf(WholeNote.propTypes)
+  notes: arrayOf(shape(WholeNote.propTypes))
 }
