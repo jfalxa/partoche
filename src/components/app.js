@@ -8,9 +8,6 @@ import Keyboard from './keyboard'
 import { Score, Staff, GClef, Chord } from './score'
 import { listChords, CHORDS } from '../music/chords'
 
-import G from '../assets/clef-g.svg'
-import N from '../assets/note-whole.svg'
-
 const ModeSelect = ({ mode, setMode }) => (
   <select
     value={mode}
@@ -61,8 +58,6 @@ const KeyScore = ({ keys, chord }) => {
           <Chord key={i} tick={i} notes={chord} />
         ))}
       </Staff>
-      <image href={G} />
-      <image href={N} x={50} />
     </Score>
   )
 }
