@@ -1,3 +1,6 @@
+import React from 'react'
+import { number, any } from 'prop-types'
+
 const Line = ({ level, ...props }) => {
   const y = Line.offset + level * Line.space
 
@@ -17,6 +20,10 @@ const Line = ({ level, ...props }) => {
 
 Line.offset = 0.5
 Line.space = 6
+
+Line.propTypes = {
+  level: number
+}
 
 export const Ledger = props => {
   return <Line x1="-1.5" x2="11.5" {...props} />
@@ -51,3 +58,8 @@ export const Staff = ({ line = 0, children, ...props }) => {
 
 Staff.offset = 18
 Staff.size = 50
+
+Staff.propTypes = {
+  line: number,
+  children: any
+}

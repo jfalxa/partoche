@@ -1,5 +1,6 @@
 import React from 'react'
 import useKeyboard from './hook'
+import { number, bool, arrayOf, func } from 'prop-types'
 
 const BLACKS = [1, 3, 6, 8, 10]
 
@@ -49,6 +50,11 @@ const Key = ({ value, pressed, ...props }) => {
   return <KeyType {...props} style={{ background: pressed ? 'gray' : null }} />
 }
 
+Key.propTypes = {
+  value: number,
+  pressed: bool
+}
+
 // 0..87
 const KEYS = [...Array(88).keys()]
 
@@ -68,6 +74,11 @@ const Keyboard = ({ value, onChange, ...props }) => {
       ))}
     </Board>
   )
+}
+
+Keyboard.propTypes = {
+  value: arrayOf(number),
+  onChange: func
 }
 
 export default Keyboard

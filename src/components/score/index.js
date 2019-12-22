@@ -1,7 +1,10 @@
+import React from 'react'
+
 export * from './accidentals'
 export * from './notes'
 export * from './staff'
 export * from './clefs'
+export * from './chords'
 
 export const Score = props => (
   <svg

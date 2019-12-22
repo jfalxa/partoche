@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const GClef = props => (
   <path
     {...props}

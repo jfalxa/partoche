@@ -1,11 +1,14 @@
+import React from 'react'
+import { bool, number, string } from 'prop-types'
+
 import { Ledger } from './staff'
 import { Flat, Sharp } from './accidentals'
 
 export const WholeNote = ({ value = 0, tick = 0, accidental, alt = false }) => {
   const dx =
     WholeNote.offsetX +
-    tick * 2.5 * WholeNote.width +
-    (alt ? WholeNote.width - 2 : 0)
+    tick * 3 * WholeNote.width +
+    (alt ? WholeNote.width - 4 : 0)
 
   const dy = 0.5 + (WholeNote.offsetY - value) * (WholeNote.height / 2)
 
@@ -31,3 +34,10 @@ WholeNote.offsetX = 36
 WholeNote.offsetY = 9
 WholeNote.width = 10
 WholeNote.height = 6
+
+WholeNote.propTypes = {
+  value: number,
+  tick: number,
+  accidental: string,
+  alt: bool
+}

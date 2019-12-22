@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
 function setupMIDIEvents(addKey, removeKey) {
+  if (!navigator.requestMIDIAccess) return
+
   function onMIDIMessage({ data }) {
     // ignore sustain and other irrelevant midi signals
     if ([248, 254, 176].includes(data[0])) return
