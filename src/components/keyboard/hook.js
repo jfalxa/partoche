@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function setupMIDIEvents(addKey, removeKey) {
+function setupMIDIEvents(setKeys) {
   if (!navigator.requestMIDIAccess) return
 
   function onMIDIMessage({ data }) {
@@ -10,11 +10,11 @@ function setupMIDIEvents(addKey, removeKey) {
     // shift midi note value to match our keyboard config
     const key = data[1] - 21
 
-    if (data[2] > 0) {
-      addKey(key)
-    } else {
-      removeKey(key)
-    }
+    // add or remove key from state
+    setKeys(keys => {
+      if (data[2] > 0) return [...keys, key]
+      else return keys.filter(k => k !== key)
+    })
   }
 
   return navigator.requestMIDIAccess().then(midi => {
@@ -34,8 +34,8 @@ export default function useKeyboard(state, setState) {
   const removeKey = key => setKeys(keys => keys.filter(k => k !== key))
 
   useEffect(() => {
-    setupMIDIEvents(addKey, removeKey)
-  }, [])
+    setupMIDIEvents(setKeys)
+  }, [setKeys])
 
   return { keys, addKey, removeKey }
 }
