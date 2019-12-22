@@ -1,11 +1,11 @@
 export const MODES = [
-  '\xA0\xA0I. Ionian',
-  '\xA0II. Dorian',
-  'III. Phrygian',
-  '\xA0IV. Lydian',
-  '\xA0\xA0V. Mixolydian',
-  '\xA0VI. Aeolian',
-  'VII. Locrian'
+  '- Ionian\xA0\xA0\xA0\xA0\xA0(I)',
+  '- Dorian\xA0\xA0\xA0\xA0\xA0(II)',
+  '- Phrygian\xA0\xA0\xA0(III)',
+  '- Lydian\xA0\xA0\xA0\xA0\xA0(IV)',
+  '- Mixolydian\xA0(V)',
+  '- Aeolian\xA0\xA0\xA0\xA0(VI)',
+  '- Locrian\xA0\xA0\xA0\xA0(VII)'
 ]
 
 const NOTES = [0, 1, 2, 3, 4, 5, 6]
