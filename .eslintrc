@@ -3,11 +3,12 @@
 
   "extends": ["eslint:recommended", "plugin:react/recommended"],
 
-  "plugins": ["react-hooks"],
+  "plugins": ["react-hooks", "jest"],
 
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
 
   "rules": {
