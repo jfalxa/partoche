@@ -8,8 +8,9 @@ const CHORDS = [
   '- 4 note chord'
 ]
 
-const SelectChord = ({ chord, setChord }) => (
+const SelectChord = ({ chord, setChord, ...props }) => (
   <select
+    {...props}
     value={chord}
     onChange={e => setChord(parseInt(e.target.value, 10))}
     css={{ fontFamily: 'monospace' }}

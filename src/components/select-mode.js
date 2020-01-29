@@ -11,8 +11,9 @@ const MODES = [
   '- Locrian\xA0\xA0\xA0\xA0(VII)'
 ]
 
-const SelectMode = ({ mode, setMode }) => (
+const SelectMode = ({ mode, setMode, ...props }) => (
   <select
+    {...props}
     value={mode}
     onChange={e => setMode(parseInt(e.target.value, 10))}
     css={{ fontFamily: 'monospace' }}

@@ -29,8 +29,8 @@ const App = () => {
         height: '100vh'
       }}
     >
-      <SelectMode mode={mode} setMode={setMode} />
-      <SelectChord chord={chord} setChord={setChord} />
+      <SelectMode disabled={keys.length === 0} mode={mode} setMode={setMode} />
+      <SelectChord disabled={mode === -1} chord={chord} setChord={setChord} />
 
       <KeyScore keys={keys} chord={chord} />
 
