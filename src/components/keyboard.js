@@ -14,7 +14,9 @@ const Board = props => (
     css={{
       display: 'flex',
       border: '1px solid black',
-      borderRight: 'none'
+      borderRight: 'none',
+      width: '100%',
+      height: '20%'
     }}
   />
 )
@@ -45,20 +47,28 @@ const WhiteKey = props => (
   />
 )
 
-const Key = ({ value, pressed, ...props }) => {
+const Key = ({ value, pressed, highlighted, ...props }) => {
   const KeyType = isBlack(value) ? BlackKey : WhiteKey
-  return <KeyType {...props} style={{ background: pressed ? 'gray' : null }} />
+  return (
+    <KeyType
+      {...props}
+      style={{
+        background: pressed ? 'green' : highlighted ? 'gray' : null
+      }}
+    />
+  )
 }
 
 Key.propTypes = {
   value: number,
-  pressed: bool
+  pressed: bool,
+  highlighted: bool
 }
 
 // 0..87
 const KEYS = [...Array(88).keys()]
 
-const Keyboard = ({ value, onChange, ...props }) => {
+const Keyboard = ({ value, highlighted, onChange, ...props }) => {
   const keyboard = useKeyboard(value, onChange)
 
   return (
@@ -68,6 +78,7 @@ const Keyboard = ({ value, onChange, ...props }) => {
           key={key}
           value={key}
           pressed={keyboard.keys.includes(key)}
+          highlighted={highlighted.includes(key)}
           onPointerDown={() => keyboard.addKey(key)}
           onPointerUp={() => keyboard.removeKey(key)}
         />
@@ -78,7 +89,12 @@ const Keyboard = ({ value, onChange, ...props }) => {
 
 Keyboard.propTypes = {
   value: arrayOf(number),
+  highlighted: arrayOf(number),
   onChange: func
+}
+
+Keyboard.defaultProps = {
+  highlighted: []
 }
 
 export default Keyboard

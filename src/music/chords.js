@@ -6,7 +6,7 @@ export function listChords(scale, intervals = 0) {
       const index = degree + i * 2
 
       const note =
-        index > 7 // note is in next scale ?
+        index > 7 // note is in next scale
           ? scale[index % 7] + 12
           : scale[index]
 

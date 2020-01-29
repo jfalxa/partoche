@@ -1,13 +1,15 @@
 import React from 'react'
 
-import Keyboard from './keyboard'
-import SelectMode from './select-mode'
-import SelectChord from './select-chord'
-import KeyScore from './key-score'
 import useApp from '../hooks/app'
+import Keyboard from './keyboard'
+import SelectRoot from './select-root'
+import SelectMode from './select-mode'
+import SelectIntervals from './select-intervals'
+import KeyScore from './key-score'
+import PlayButton from './play-button'
 
 const App = () => {
-  const { keys, mode, chord, setKeys, setMode, setChord } = useApp()
+  const app = useApp()
 
   return (
     <div
@@ -18,15 +20,35 @@ const App = () => {
         height: '100vh'
       }}
     >
-      <SelectMode disabled={keys.length === 0} mode={mode} setMode={setMode} />
-      <SelectChord disabled={mode === -1} chord={chord} setChord={setChord} />
+      <SelectRoot root={app.root} setRoot={app.setRoot} />
 
-      <KeyScore keys={keys} chord={chord} />
+      <SelectMode
+        disabled={app.root < 0}
+        mode={app.mode}
+        setMode={app.setMode}
+      />
+
+      <SelectIntervals
+        disabled={app.mode < 0}
+        intervals={app.intervals}
+        setIntervals={app.setIntervals}
+      />
+
+      <button onClick={app.reset}>reset</button>
+
+      <KeyScore chords={app.score} />
+
+      <PlayButton
+        disabled={app.score.length === 0}
+        tick={app.tick}
+        playing={app.playing}
+        setPlaying={app.setPlaying}
+      />
 
       <Keyboard
-        value={keys}
-        onChange={setKeys}
-        css={{ width: '100%', height: '20%' }}
+        value={app.keys}
+        highlighted={app.score[app.tick]}
+        onChange={app.setKeys}
       />
     </div>
   )
