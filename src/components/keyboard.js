@@ -1,5 +1,5 @@
 import React from 'react'
-import useKeyboard from './hook'
+import useKeyboard from '../hooks/keyboard'
 import { number, bool, arrayOf, func } from 'prop-types'
 
 const BLACKS = [1, 3, 6, 8, 10]
