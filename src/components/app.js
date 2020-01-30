@@ -42,7 +42,7 @@ const App = () => {
 
       <button onClick={app.reset}>reset</button>
 
-      <KeyScore score={app.score} />
+      <KeyScore tick={app.playing ? app.tick : -1} score={app.score} />
 
       <Chord keys={app.score[app.tick]} />
 

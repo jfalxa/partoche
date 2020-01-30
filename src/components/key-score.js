@@ -11,13 +11,19 @@ function shouldBeG(chords) {
   return root > 32
 }
 
-const KeyScore = ({ score }) => (
+const KeyScore = ({ tick, score }) => (
   <Score width="400" height="280" css={{ margin: 'auto' }}>
     <Staff y={88}>
       <GClef />
       {shouldBeG(score) &&
         score.map((chord, i) => (
-          <Chord key={i} tick={i} notes={chord.map(keyToNote)} />
+          <Chord
+            key={i}
+            clef="g"
+            tick={i}
+            highlighted={tick === i}
+            notes={chord.map(keyToNote)}
+          />
         ))}
     </Staff>
 
@@ -25,13 +31,20 @@ const KeyScore = ({ score }) => (
       <FClef />
       {!shouldBeG(score) &&
         score.map((chord, i) => (
-          <Chord key={i} clef="f" tick={i} notes={chord.map(keyToNote)} />
+          <Chord
+            key={i}
+            clef="f"
+            tick={i}
+            highlighted={tick === i}
+            notes={chord.map(keyToNote)}
+          />
         ))}
     </Staff>
   </Score>
 )
 
 KeyScore.propTypes = {
+  tick: number,
   score: arrayOf(arrayOf(number))
 }
 
