@@ -14,10 +14,13 @@ export function keyToNote(key) {
     const note = NOTES[i]
     const value = i + octave * 7
 
+    const data = { key, value, note, steps, octave }
+
     if (steps === step) {
-      return { value, note }
+      return data
     } else if (steps === step - 1) {
-      return { value, note, accidental: 'b' }
+      data.accidental = 'b'
+      return data
     }
   }
 }

@@ -1,12 +1,36 @@
 import React from 'react'
-import { arrayOf, number } from 'prop-types'
+import { arrayOf, number, string } from 'prop-types'
 
 import { keyToNote } from '../utils/conversion'
+import { stringifyNotes, computeChord } from '../music/chords'
+
+const ChordName = ({ name }) => (
+  <span css={{ fontFamily: 'monospace', fontSize: 20, fontWeight: 'bold' }}>
+    {name}
+  </span>
+)
+
+ChordName.propTypes = { name: string }
+
+const NoteList = ({ notes }) => (
+  <span
+    css={{
+      fontFamily: 'monospace',
+      fontSize: 13,
+      fontWeight: 'bold',
+      marginLeft: 4
+    }}
+  >
+    ({notes})
+  </span>
+)
+NoteList.propTypes = { notes: string }
 
 const Chord = ({ keys = [], ...props }) => {
-  const notes = keys.map(keyToNote)
-  const noteNames = notes.map(n => `${n.note}${n.accidental || ''}`).join('-')
-  const chord = ''
+  const details = keys.map(keyToNote)
+
+  const notes = stringifyNotes(details)
+  const chord = computeChord(details)
 
   return (
     <div
@@ -14,13 +38,14 @@ const Chord = ({ keys = [], ...props }) => {
       css={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'baseline',
         margin: 4,
-        fontFamily: 'monospace',
-        height: 15
+        height: 22
       }}
     >
-      {keys.length > 0 && `${chord} (${noteNames})`}
+      {keys.length < 3 && <ChordName name={notes} />}
+      {keys.length > 2 && <ChordName name={chord} />}
+      {keys.length > 2 && <NoteList notes={notes} />}
     </div>
   )
 }
