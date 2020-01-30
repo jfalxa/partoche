@@ -64,7 +64,7 @@ export default function useApp() {
   if (!playing && tick > 0) setTick(0)
 
   // set the pressed key as root if not playing
-  if (!playing && keys.length === 1 && keys[0] !== root) {
+  if (!playing && keys.length === 1 && Math.min(keys[0], 75) !== root) {
     setRoot(Math.min(keys[0], 75))
   }
 
