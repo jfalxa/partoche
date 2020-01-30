@@ -1,4 +1,5 @@
 import CHORDS from './intervals'
+import { noteToString } from '../utils/conversion'
 
 function getIntervals(keys) {
   return keys.map(k => k.key - keys[0].key).sort((a, b) => a - b)
@@ -13,13 +14,9 @@ export function computeChord(keys) {
   if (keys.length < 3) return ''
 
   const intervals = getIntervals(keys)
-  const chord = findChord(intervals) || ''
+  const chord = findChord(intervals)
 
-  return keys[0].note + chord
-}
-
-export function stringifyNotes(keys) {
-  return keys.map(k => `${k.note}${k.accidental || ''}`).join('-')
+  return chord ? noteToString(keys[0]) + chord : ''
 }
 
 export function listChords(scale, intervals = 0) {
