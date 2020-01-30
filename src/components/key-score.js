@@ -2,21 +2,37 @@ import React from 'react'
 import { number, arrayOf } from 'prop-types'
 
 import { keyToNote } from '../utils/conversion'
-import { Score, Staff, GClef, Chord } from './score'
+import { Score, Staff, GClef, FClef, Chord } from './score'
 
-const KeyScore = ({ chords }) => (
-  <Score css={{ margin: 'auto' }}>
-    <Staff>
+// check on which staff it should be more appropriate to display the full progression
+// (G3b being the current threshold)
+function shouldBeG(chords) {
+  const root = chords[0] && chords[0][0]
+  return root > 32
+}
+
+const KeyScore = ({ score }) => (
+  <Score width="400" height="280" css={{ margin: 'auto' }}>
+    <Staff y={88}>
       <GClef />
-      {chords.map((chord, i) => (
-        <Chord key={i} tick={i} notes={chord.map(keyToNote)} />
-      ))}
+      {shouldBeG(score) &&
+        score.map((chord, i) => (
+          <Chord key={i} tick={i} notes={chord.map(keyToNote)} />
+        ))}
+    </Staff>
+
+    <Staff y={178}>
+      <FClef />
+      {!shouldBeG(score) &&
+        score.map((chord, i) => (
+          <Chord key={i} clef="f" tick={i} notes={chord.map(keyToNote)} />
+        ))}
     </Staff>
   </Score>
 )
 
 KeyScore.propTypes = {
-  chords: arrayOf(arrayOf(number))
+  score: arrayOf(arrayOf(number))
 }
 
 export default KeyScore

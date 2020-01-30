@@ -1,5 +1,5 @@
 import React from 'react'
-import { number, arrayOf, shape } from 'prop-types'
+import { number, arrayOf, shape, string } from 'prop-types'
 
 import { WholeNote } from './notes'
 
@@ -8,7 +8,7 @@ function collides(a, b) {
   return Math.abs(b.value - a.value) === 1
 }
 
-export const Chord = ({ tick, notes }) => (
+export const Chord = ({ tick, clef, notes }) => (
   <g>
     {notes.map((note, i) => (
       <WholeNote
@@ -16,6 +16,7 @@ export const Chord = ({ tick, notes }) => (
         tick={tick}
         alt={collides(notes[i - 1], note)}
         value={note.value}
+        clef={clef}
         accidental={note.accidental}
       />
     ))}
@@ -24,5 +25,6 @@ export const Chord = ({ tick, notes }) => (
 
 Chord.propTypes = {
   tick: number,
+  clef: string,
   notes: arrayOf(shape(WholeNote.propTypes))
 }

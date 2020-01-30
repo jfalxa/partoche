@@ -1,8 +1,8 @@
 import React from 'react'
 import { number, any } from 'prop-types'
 
-const Line = ({ level, ...props }) => {
-  const y = Line.offset + level * Line.space
+export const Line = ({ level, ...props }) => {
+  const y = level * Line.space
 
   return (
     <line
@@ -11,55 +11,31 @@ const Line = ({ level, ...props }) => {
       y1={y}
       y2={y}
       stroke="black"
-      strokeWidth="1px"
+      strokeWidth="0.5px"
       shapeRendering="crispEdges"
       {...props}
     />
   )
 }
 
-Line.offset = 0.5
-Line.space = 6
+Line.space = 9
 
 Line.propTypes = {
   level: number
 }
 
-export const Ledger = props => {
-  return <Line x1="-1.5" x2="11.5" {...props} />
-}
-
-Ledger.list = value => {
-  if (value <= 0) {
-    const size = Math.floor(-value / 2) + 1
-    return [...Array(size).keys()].map(i => i + 5)
-  } else if (value >= 12) {
-    const size = Math.floor((value - 12) / 2) + 1
-    return [...Array(size).keys()].map(i => -(i + 1))
-  } else {
-    return []
-  }
-}
-
-export const Staff = ({ line = 0, children, ...props }) => {
-  const dy = Staff.offset + line * Staff.size
-
-  return (
-    <g transform={`translate(0 ${dy})`} {...props}>
-      <Line level={0} />
-      <Line level={1} />
-      <Line level={2} />
-      <Line level={3} />
-      <Line level={4} />
-      {children}
-    </g>
-  )
-}
-
-Staff.offset = 18
-Staff.size = 50
+export const Staff = ({ y = 0, children, ...props }) => (
+  <g transform={`translate(0 ${y})`} {...props}>
+    <Line level={0} />
+    <Line level={1} />
+    <Line level={2} />
+    <Line level={3} />
+    <Line level={4} />
+    {children}
+  </g>
+)
 
 Staff.propTypes = {
-  line: number,
+  y: number,
   children: any
 }

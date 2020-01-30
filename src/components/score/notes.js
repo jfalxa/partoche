@@ -1,43 +1,49 @@
 import React from 'react'
 import { bool, number, string } from 'prop-types'
 
-import { Ledger } from './staff'
+import { Ledger } from './ledger'
 import { Flat, Sharp } from './accidentals'
 
-export const WholeNote = ({ value = 0, tick = 0, accidental, alt = false }) => {
+export const WholeNote = ({
+  value = 0,
+  tick = 0,
+  clef = 'g',
+  accidental,
+  alt = false
+}) => {
   const dx =
     WholeNote.offsetX +
     tick * 3 * WholeNote.width +
     (alt ? WholeNote.width - 4 : 0)
 
-  const dy = 0.5 + (WholeNote.offsetY - value) * (WholeNote.height / 2)
+  // on g, dy = 0 for value = 37 (E5)
+  // on f, dy = 0 for value = 25 (G3)
+  const y0 = clef === 'g' ? 37 : 25
+  const dy = (y0 - value) * (WholeNote.height / 2)
 
   return (
     <g transform={`translate(${dx} 0)`}>
       <g transform={`translate(0 ${dy})`}>
         {accidental === 'b' && <Flat />}
         {accidental === '#' && <Sharp />}
-        <path
-          d="m2.572214,5.620131c-1.383754,-0.425896 -2.47555,-1.583257 -2.47555,-2.624211c0,-2.946336 6.328451,-4.11228 8.941933,-1.647449c2.826166,2.665417 -1.786012,5.712197 -6.466382,4.27166zm4.221099,-0.740169c0.769934,-1.175067 0.033815,-3.503213 -1.299776,-4.110838c-1.958424,-0.892316 -3.158868,0.628287 -2.343195,2.968131c0.564183,1.618416 2.859518,2.338407 3.64297,1.142707z"
-          fill="#000000"
-        />
+        <path d="M3.789 8.444C1.673 7.801 0 6.06 0 4.494c0-4.436 9.68-6.188 13.677-2.48C18 6.027 10.947 10.61 3.79 8.445zm6.457-1.116c1.177-1.767.046-5.272-1.992-6.187-3-1.336-4.83.946-3.58 4.465.86 2.437 4.372 3.52 5.572 1.722z" />
       </g>
 
-      {Ledger.list(value).map(level => (
+      {Ledger.list(value, clef).map(level => (
         <Ledger key={level} level={level} />
       ))}
     </g>
   )
 }
 
-WholeNote.offsetX = 36
-WholeNote.offsetY = 9
-WholeNote.width = 10
-WholeNote.height = 6
+WholeNote.offsetX = 48
+WholeNote.width = 15
+WholeNote.height = 9
 
 WholeNote.propTypes = {
   value: number,
   tick: number,
   accidental: string,
+  clef: string,
   alt: bool
 }

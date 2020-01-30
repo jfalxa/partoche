@@ -3,6 +3,7 @@ import React from 'react'
 export * from './accidentals'
 export * from './notes'
 export * from './staff'
+export * from './ledger'
 export * from './clefs'
 export * from './chords'
 

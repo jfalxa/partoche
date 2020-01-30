@@ -68,7 +68,7 @@ Key.propTypes = {
 // 0..87
 const KEYS = [...Array(88).keys()]
 
-const Keyboard = ({ value, highlighted, onChange, ...props }) => {
+const Keyboard = ({ value, highlighted = [], onChange, ...props }) => {
   const keyboard = useKeyboard(value, onChange)
 
   return (
@@ -91,10 +91,6 @@ Keyboard.propTypes = {
   value: arrayOf(number),
   highlighted: arrayOf(number),
   onChange: func
-}
-
-Keyboard.defaultProps = {
-  highlighted: []
 }
 
 export default Keyboard

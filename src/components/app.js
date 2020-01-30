@@ -36,7 +36,7 @@ const App = () => {
 
       <button onClick={app.reset}>reset</button>
 
-      <KeyScore chords={app.score} />
+      <KeyScore score={app.score} />
 
       <PlayButton
         disabled={app.score.length === 0}
