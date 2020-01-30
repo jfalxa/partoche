@@ -14,7 +14,9 @@ const SelectRoot = ({ root, setRoot, ...props }) => (
     <option value={-1}>- No root</option>
     {KEYS.map(root => (
       <option key={root.key} value={root.key}>
-        - {`${root.note}${root.octave}`}
+        - {root.note}
+        {root.accidental}
+        {root.octave}
       </option>
     ))}
   </select>
