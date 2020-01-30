@@ -51,11 +51,22 @@ export default function useApp() {
   const [tick, setTick] = useState(0)
   const [playing, setPlaying] = useState(false)
 
-  if (root < 0 && keys.length === 1) setRoot(Math.min(keys[0], 75))
+  // reset mode when root is unset
   if (root < 0 && mode >= 0) setMode(-1)
+
+  // reset intervals when mode is not set
   if (mode < 0 && intervals > 1) setIntervals(1)
+
+  // stop playing if root is unset
   if (root < 0 && playing) setPlaying(false)
+
+  // reset tick if playing stops
   if (!playing && tick > 0) setTick(0)
+
+  // set the pressed key as root if not playing
+  if (!playing && keys.length === 1 && keys[0] !== root) {
+    setRoot(Math.min(keys[0], 75))
+  }
 
   const score = useScore(root, mode, intervals)
 
