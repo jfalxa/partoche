@@ -1,5 +1,17 @@
 import { useEffect, useState } from 'react'
 
+function ascKeys(keyA, keyB) {
+  return keyA - keyB
+}
+
+function addKey(key) {
+  return keys => [...keys, key].sort(ascKeys)
+}
+
+function removeKey(key) {
+  return keys => keys.filter(k => k !== key).sort(ascKeys)
+}
+
 function setupMIDIEvents(setKeys) {
   if (!navigator.requestMIDIAccess) return
 
@@ -12,8 +24,8 @@ function setupMIDIEvents(setKeys) {
 
     // add or remove key from state
     setKeys(keys => {
-      if (data[2] > 0) return [...keys, key]
-      else return keys.filter(k => k !== key)
+      if (data[2] > 0) return addKey(key)(keys)
+      else return removeKey(key)(keys)
     })
   }
 
@@ -30,12 +42,13 @@ export default function useKeyboard(state, setState) {
   const keys = state || local
   const setKeys = setState || setLocal
 
-  const addKey = key => setKeys(keys => [...keys, key])
-  const removeKey = key => setKeys(keys => keys.filter(k => k !== key))
-
   useEffect(() => {
     setupMIDIEvents(setKeys)
   }, [setKeys])
 
-  return { keys, addKey, removeKey }
+  return {
+    keys,
+    addKey: key => setKeys(addKey(key)),
+    removeKey: key => setKeys(removeKey(key))
+  }
 }

@@ -40,9 +40,7 @@ const App = () => {
         setIntervals={app.setIntervals}
       />
 
-      <button onClick={app.reset}>reset</button>
-
-      <KeyScore tick={app.playing ? app.tick : -1} score={app.score} />
+      <KeyScore tick={app.tick} keys={app.keys} score={app.score} />
 
       <Chord keys={app.score[app.tick]} />
 
@@ -52,6 +50,10 @@ const App = () => {
         playing={app.playing}
         setPlaying={app.setPlaying}
       />
+
+      <button disabled={app.score.length === 0} onClick={app.clear}>
+        Clear
+      </button>
 
       <Keyboard
         value={app.keys}

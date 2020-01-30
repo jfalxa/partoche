@@ -53,7 +53,7 @@ const Key = ({ value, pressed, highlighted, ...props }) => {
     <KeyType
       {...props}
       style={{
-        background: pressed ? 'green' : highlighted ? 'gray' : null
+        background: pressed ? 'limegreen' : highlighted ? 'gray' : null
       }}
     />
   )

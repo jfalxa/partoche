@@ -73,7 +73,8 @@ export default function useApp() {
   useTickProgression(keys, score, setTick)
   useSynth(playing, score, tick)
 
-  function reset() {
+  function clear() {
+    setKeys([])
     setRoot(-1)
     setMode(-1)
     setIntervals(1)
@@ -87,7 +88,7 @@ export default function useApp() {
     score,
     tick,
     playing,
-    reset,
+    clear,
     setKeys,
     setRoot,
     setMode,

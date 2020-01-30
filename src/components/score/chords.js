@@ -8,8 +8,8 @@ function collides(a, b) {
   return Math.abs(b.value - a.value) === 1
 }
 
-export const Chord = ({ tick, highlighted, clef, notes }) => {
-  const color = highlighted ? 'green' : 'black'
+export const Chord = ({ tick, pressed, highlighted, clef, notes }) => {
+  const color = pressed ? 'limegreen' : highlighted ? 'gray' : 'black'
 
   return (
     <g fill={color} stroke={color}>
@@ -30,6 +30,7 @@ export const Chord = ({ tick, highlighted, clef, notes }) => {
 Chord.propTypes = {
   tick: number,
   clef: string,
+  pressed: bool,
   highlighted: bool,
   notes: arrayOf(shape(WholeNote.propTypes))
 }
