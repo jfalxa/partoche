@@ -51,7 +51,7 @@ export default function useApp() {
   const [tick, setTick] = useState(0)
   const [playing, setPlaying] = useState(false)
 
-  if (root < 0 && keys.length === 1) setRoot(keys[0])
+  if (root < 0 && keys.length === 1) setRoot(Math.min(keys[0], 75))
   if (root < 0 && mode >= 0) setMode(-1)
   if (mode < 0 && intervals > 1) setIntervals(1)
   if (root < 0 && playing) setPlaying(false)

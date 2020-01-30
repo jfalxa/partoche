@@ -1,7 +1,7 @@
 import React from 'react'
 import { number, func } from 'prop-types'
 
-const KEYS = Array(88)
+const KEYS = Array(76)
   .fill(0)
   .map((_, i) => `- ${i}`)
 
