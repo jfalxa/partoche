@@ -7,19 +7,25 @@ import SelectMode from './select-mode'
 import SelectIntervals from './select-intervals'
 import KeyScore from './key-score'
 import PlayButton from './play-button'
+import Chord from './chord'
+
+const Container = props => (
+  <div
+    {...props}
+    css={{
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100vw',
+      height: '100vh'
+    }}
+  />
+)
 
 const App = () => {
   const app = useApp()
 
   return (
-    <div
-      css={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100vw',
-        height: '100vh'
-      }}
-    >
+    <Container>
       <SelectRoot root={app.root} setRoot={app.setRoot} />
 
       <SelectMode
@@ -38,6 +44,8 @@ const App = () => {
 
       <KeyScore score={app.score} />
 
+      <Chord keys={app.score[app.tick]} />
+
       <PlayButton
         disabled={app.score.length === 0}
         tick={app.tick}
@@ -50,7 +58,7 @@ const App = () => {
         highlighted={app.score[app.tick]}
         onChange={app.setKeys}
       />
-    </div>
+    </Container>
   )
 }
 
