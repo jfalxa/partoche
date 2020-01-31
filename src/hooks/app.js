@@ -47,6 +47,7 @@ export default function useApp() {
   const [root, setRoot] = useState(-1)
   const [mode, setMode] = useState(-1)
   const [intervals, setIntervals] = useState(1)
+  const [inversion, setInversion] = useState(0)
 
   const [tick, setTick] = useState(0)
   const [playing, setPlaying] = useState(false)
@@ -54,8 +55,11 @@ export default function useApp() {
   // reset mode when root is unset
   if (root < 0 && mode >= 0) setMode(-1)
 
-  // reset intervals when mode is not set
+  // reset intervals when mode is unset
   if (mode < 0 && intervals > 1) setIntervals(1)
+
+  // adjust inversion according to the current intervals
+  if (inversion >= intervals) setInversion(intervals - 1)
 
   // stop playing if root is unset
   if (root < 0 && playing) setPlaying(false)
@@ -85,6 +89,7 @@ export default function useApp() {
     root,
     mode,
     intervals,
+    inversion,
     score,
     tick,
     playing,
@@ -93,6 +98,7 @@ export default function useApp() {
     setRoot,
     setMode,
     setIntervals,
+    setInversion,
     setTick,
     setPlaying
   }

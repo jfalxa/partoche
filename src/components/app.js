@@ -8,6 +8,7 @@ import SelectIntervals from './select-intervals'
 import KeyScore from './key-score'
 import PlayButton from './play-button'
 import Chord from './chord'
+import SelectInversion from './select-inversion'
 
 const Container = props => (
   <div
@@ -38,6 +39,13 @@ const App = () => {
         disabled={app.mode < 0}
         intervals={app.intervals}
         setIntervals={app.setIntervals}
+      />
+
+      <SelectInversion
+        disabled={app.intervals < 2}
+        intervals={app.intervals}
+        inversion={app.inversion}
+        setInversion={app.setInversion}
       />
 
       <KeyScore tick={app.tick} keys={app.keys} score={app.score} />
