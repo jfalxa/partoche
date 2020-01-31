@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react'
 
-function ascKeys(keyA, keyB) {
-  return keyA - keyB
-}
-
 function addKey(key) {
-  return keys => [...keys, key].sort(ascKeys)
+  return keys => [...keys, key]
 }
 
 function removeKey(key) {
-  return keys => keys.filter(k => k !== key).sort(ascKeys)
+  return keys => keys.filter(k => k !== key)
 }
 
 function setupMIDIEvents(setKeys) {

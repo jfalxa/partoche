@@ -25,6 +25,6 @@ export function keyToNote(key) {
   }
 }
 
-export function noteToString(data, showOctave) {
+export function noteToString(data, showOctave = false) {
   return data.note + (data.accidental || '') + (showOctave ? data.octave : '')
 }

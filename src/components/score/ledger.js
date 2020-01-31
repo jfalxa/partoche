@@ -1,11 +1,11 @@
 import React from 'react'
+
 import { Line } from './staff'
+import { range } from '../../utils/helpers'
 
 export const Ledger = props => {
   return <Line x1="-2" x2="17" {...props} />
 }
-
-const range = size => [...Array(size).keys()]
 
 // calculate the distance between the given note and min/max
 function countLedgers(value, min, max) {

@@ -1,39 +1,49 @@
 import React from 'react'
-import { arrayOf, number, string } from 'prop-types'
+import { arrayOf, number, string, bool, object } from 'prop-types'
 
-import { keyToNote, noteToString } from '../utils/conversion'
 import { computeChord } from '../music/chords'
+import { noteToString, keyToNote } from '../utils/conversion'
 
-const ChordName = ({ name }) => (
+const ChordName = ({ root, name }) => (
   <span css={{ fontFamily: 'monospace', fontSize: 20, fontWeight: 'bold' }}>
+    {noteToString(root)}
     {name}
   </span>
 )
 
-ChordName.propTypes = { name: string }
+ChordName.propTypes = {
+  root: object,
+  name: string
+}
 
-const NoteList = ({ notes }) => (
-  <span
-    css={{
-      fontFamily: 'monospace',
-      fontSize: 13,
-      fontWeight: 'bold',
-      marginLeft: 4
-    }}
-  >
-    ({notes})
-  </span>
-)
-NoteList.propTypes = { notes: string }
+const NoteList = ({ small, notes = [] }) => {
+  const noteList = notes.map(n => noteToString(n)).join('-')
+
+  return (
+    <span
+      css={{
+        fontFamily: 'monospace',
+        fontSize: small ? 13 : 20,
+        fontWeight: small ? 'normal' : 'bold',
+        marginLeft: 4
+      }}
+    >
+      {small ? `(${noteList})` : noteList}
+    </span>
+  )
+}
+
+NoteList.propTypes = {
+  small: bool,
+  notes: arrayOf(object)
+}
 
 const Chord = ({ keys, scoreKeys = [], ...props }) => {
-  const details = keys.map(keyToNote)
-  const notes = details.map(noteToString).join('-')
-  const chord = computeChord(details)
+  const notes = keys.map(keyToNote)
+  const scoreNotes = scoreKeys.map(keyToNote)
 
-  const scoreDetails = scoreKeys.map(keyToNote)
-  const scoreNotes = scoreDetails.map(noteToString).join('-')
-  const scoreChord = computeChord(scoreDetails)
+  const [chord, chordNotes] = computeChord(notes)
+  const [scrChord, scrChordNotes] = computeChord(scoreNotes)
 
   return (
     <div
@@ -46,9 +56,10 @@ const Chord = ({ keys, scoreKeys = [], ...props }) => {
       }}
     >
       <div css={{ color: 'limegreen' }}>
-        {!chord && <ChordName name={notes} />}
-        {chord && <ChordName name={chord} />}
-        {chord && <NoteList notes={notes} />}
+        {!chord && <NoteList notes={notes} />}
+
+        {chord && <ChordName root={chordNotes[0]} name={chord} />}
+        {chord && <NoteList small notes={chordNotes} />}
       </div>
 
       {keys.length > 0 && scoreKeys.length > 0 && (
@@ -56,9 +67,10 @@ const Chord = ({ keys, scoreKeys = [], ...props }) => {
       )}
 
       <div css={{ color: 'gray' }}>
-        {!scoreChord && <ChordName name={scoreNotes} />}
-        {scoreChord && <ChordName name={scoreChord} />}
-        {scoreChord && <NoteList notes={scoreNotes} />}
+        {!scrChord && <NoteList notes={scoreNotes} />}
+
+        {scrChord && <ChordName root={scrChordNotes[0]} name={scrChord} />}
+        {scrChord && <NoteList small notes={scrChordNotes} />}
       </div>
     </div>
   )
