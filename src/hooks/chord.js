@@ -15,13 +15,8 @@ function useComputeChord(keys) {
 }
 
 export default function useChord(userKeys, scoreKeys) {
-  let start = performance.now()
-
   const user = useComputeChord(userKeys)
   const score = useComputeChord(scoreKeys)
-
-  let end = performance.now()
-  console.log(end - start + 'ms')
 
   return { user, score }
 }
