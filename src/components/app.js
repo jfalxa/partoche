@@ -50,7 +50,7 @@ const App = () => {
 
       <KeyScore tick={app.tick} keys={app.keys} score={app.score} />
 
-      <Chord keys={app.keys} scoreKeys={app.score[app.tick]} />
+      <Chord userKeys={app.keys} scoreKeys={app.score[app.tick]} />
 
       <PlayButton
         disabled={app.score.length === 0}

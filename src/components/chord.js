@@ -1,8 +1,8 @@
 import React from 'react'
 import { arrayOf, number, string, bool, object } from 'prop-types'
 
-import { computeChord } from '../music/chords'
-import { noteToString, keyToNote } from '../utils/conversion'
+import useChord from '../hooks/chord'
+import { noteToString } from '../utils/conversion'
 
 const ChordName = ({ root, name }) => (
   <span css={{ fontFamily: 'monospace', fontSize: 20, fontWeight: 'bold' }}>
@@ -38,12 +38,8 @@ NoteList.propTypes = {
   notes: arrayOf(object)
 }
 
-const Chord = ({ keys, scoreKeys = [], ...props }) => {
-  const notes = keys.map(keyToNote)
-  const scoreNotes = scoreKeys.map(keyToNote)
-
-  const [chord, chordNotes] = computeChord(notes)
-  const [scrChord, scrChordNotes] = computeChord(scoreNotes)
+const Chord = ({ userKeys, scoreKeys, ...props }) => {
+  const { user, score } = useChord(userKeys, scoreKeys)
 
   return (
     <div
@@ -56,28 +52,28 @@ const Chord = ({ keys, scoreKeys = [], ...props }) => {
       }}
     >
       <div css={{ color: 'limegreen' }}>
-        {!chord && <NoteList notes={notes} />}
+        {!user.chord && <NoteList notes={user.input} />}
 
-        {chord && <ChordName root={chordNotes[0]} name={chord} />}
-        {chord && <NoteList small notes={chordNotes} />}
+        {user.chord && <ChordName root={user.notes[0]} name={user.chord} />}
+        {user.chord && <NoteList small notes={user.notes} />}
       </div>
 
-      {keys.length > 0 && scoreKeys.length > 0 && (
+      {userKeys.length > 0 && scoreKeys.length > 0 && (
         <span css={{ margin: '0 8px' }}>/</span>
       )}
 
       <div css={{ color: 'gray' }}>
-        {!scrChord && <NoteList notes={scoreNotes} />}
+        {!score.chord && <NoteList notes={score.input} />}
 
-        {scrChord && <ChordName root={scrChordNotes[0]} name={scrChord} />}
-        {scrChord && <NoteList small notes={scrChordNotes} />}
+        {score.chord && <ChordName root={score.notes[0]} name={score.chord} />}
+        {score.chord && <NoteList small notes={score.notes} />}
       </div>
     </div>
   )
 }
 
 Chord.propTypes = {
-  keys: arrayOf(number),
+  userKeys: arrayOf(number),
   scoreKeys: arrayOf(number)
 }
 

@@ -2,7 +2,7 @@ import CHORDS from './intervals'
 import { unique, permute } from '../utils/helpers'
 
 function getNotePermutations(notes) {
-  return permute(unique(notes, note => note.steps))
+  return permute(unique(notes, note => note.steps), 4) // prettier-ignore
 }
 
 function findChord(notes) {
@@ -12,8 +12,7 @@ function findChord(notes) {
   const intervals = notes.map(n => n.steps - root + (n.steps < root ? 12 : 0))
 
   // find if the intervals match a type of chord
-  const target = intervals.join('-')
-  const chord = Object.keys(CHORDS).find(c => CHORDS[c].join('-') === target)
+  const chord = CHORDS[intervals.join()]
 
   return chord ? [chord, notes] : null
 }
