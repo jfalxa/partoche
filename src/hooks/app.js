@@ -80,8 +80,6 @@ export default function useApp() {
   function clear() {
     setKeys([])
     setRoot(-1)
-    setMode(-1)
-    setIntervals(1)
   }
 
   return {
