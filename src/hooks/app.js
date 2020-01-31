@@ -2,17 +2,17 @@ import { useState, useEffect, useMemo, useRef } from 'react'
 
 import createSynth from '../utils/synth'
 import scale from '../music/scales'
-import { listChords } from '../music/chords'
+import { listScaleChords } from '../music/chords'
 
 const play = createSynth()
 
-function useScore(root, mode, intervals) {
+function useScore(root, mode, intervals, inversion) {
   return useMemo(() => {
     if (root < 0) return []
     if (mode < 0) return [[root]]
 
-    return listChords(scale(root, mode), intervals)
-  }, [root, mode, intervals])
+    return listScaleChords(scale(root, mode), intervals, inversion)
+  }, [root, mode, intervals, inversion])
 }
 
 function useTickProgression(keys, score, setTick) {
@@ -72,7 +72,7 @@ export default function useApp() {
     setRoot(Math.min(keys[0], 75))
   }
 
-  const score = useScore(root, mode, intervals)
+  const score = useScore(root, mode, intervals, inversion)
 
   useTickProgression(keys, score, setTick)
   useSynth(playing, score, tick)

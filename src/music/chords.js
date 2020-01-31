@@ -19,10 +19,21 @@ function findChord(notes) {
 }
 
 export function computeChord(notes) {
-  return getNotePermutations(notes).map(findChord).filter(Boolean).pop() || [] // prettier-ignore
+  const chords = getNotePermutations(notes)
+    .map(findChord)
+    .filter(Boolean)
+
+  return chords[0] || []
 }
 
-export function listChords(scale, intervals = 0) {
+export function invertChord(chord, inversion) {
+  const left = chord.slice(inversion)
+  const right = chord.slice(0, inversion).map(steps => steps + 12)
+
+  return [...left, ...right]
+}
+
+export function listScaleChords(scale, intervals, inversion) {
   return scale.map((root, degree) => {
     const chord = [root]
 
@@ -37,6 +48,6 @@ export function listChords(scale, intervals = 0) {
       chord.push(note)
     }
 
-    return chord
+    return invertChord(chord, inversion)
   })
 }
