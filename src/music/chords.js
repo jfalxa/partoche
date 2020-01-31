@@ -45,7 +45,10 @@ export function listScaleChords(scale, intervals, inversion) {
           ? scale[index % 7] + 12
           : scale[index]
 
-      chord.push(note)
+      // do not go outside the keyboard
+      if (note < 88) {
+        chord.push(note)
+      }
     }
 
     return invertChord(chord, inversion)
