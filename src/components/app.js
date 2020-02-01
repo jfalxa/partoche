@@ -1,14 +1,12 @@
 import React from 'react'
 
 import useApp from '../hooks/app'
-import Keyboard from './keyboard'
-import SelectRoot from './select-root'
-import SelectMode from './select-mode'
-import SelectIntervals from './select-intervals'
-import KeyScore from './key-score'
-import PlayButton from './play-button'
+
+import Menu from './menu'
+import ScorePreview from './score-preview'
 import Chord from './chord'
-import SelectInversion from './select-inversion'
+import Buttons from './buttons'
+import Keyboard from './keyboard'
 
 const Container = props => (
   <div
@@ -27,41 +25,13 @@ const App = () => {
 
   return (
     <Container>
-      <SelectRoot root={app.root} setRoot={app.setRoot} />
+      <Menu app={app} />
 
-      <SelectMode
-        disabled={app.root < 0}
-        mode={app.mode}
-        setMode={app.setMode}
-      />
-
-      <SelectIntervals
-        disabled={app.mode < 0}
-        intervals={app.intervals}
-        setIntervals={app.setIntervals}
-      />
-
-      <SelectInversion
-        disabled={app.intervals < 2}
-        intervals={app.intervals}
-        inversion={app.inversion}
-        setInversion={app.setInversion}
-      />
-
-      <KeyScore tick={app.tick} keys={app.keys} score={app.score} />
+      <ScorePreview tick={app.tick} keys={app.keys} score={app.score} />
 
       <Chord userKeys={app.keys} scoreKeys={app.score[app.tick]} />
 
-      <PlayButton
-        disabled={app.score.length === 0}
-        tick={app.tick}
-        playing={app.playing}
-        setPlaying={app.setPlaying}
-      />
-
-      <button disabled={app.score.length === 0} onClick={app.clear}>
-        Clear
-      </button>
+      <Buttons app={app} />
 
       <Keyboard
         value={app.keys}

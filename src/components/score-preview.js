@@ -11,7 +11,7 @@ function shouldBeG(chords) {
   return root > 32
 }
 
-const KeyScore = ({ tick, keys, score }) => (
+const ScorePreview = ({ tick, keys, score }) => (
   <Score width="400" height="280" css={{ margin: 'auto' }}>
     <Staff y={88}>
       <GClef />
@@ -51,10 +51,10 @@ const KeyScore = ({ tick, keys, score }) => (
   </Score>
 )
 
-KeyScore.propTypes = {
+ScorePreview.propTypes = {
   tick: number,
   keys: arrayOf(number),
   score: arrayOf(arrayOf(number))
 }
 
-export default KeyScore
+export default ScorePreview

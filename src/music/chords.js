@@ -1,4 +1,4 @@
-import CHORDS from './intervals'
+import CHORDS from '../constants/chords'
 import { unique, permute } from '../utils/helpers'
 
 function getNotePermutations(notes) {
@@ -30,26 +30,4 @@ export function invertChord(chord, inversion) {
   const right = chord.slice(0, inversion).map(steps => steps + 12)
 
   return [...left, ...right]
-}
-
-export function listScaleChords(scale, intervals, inversion) {
-  return scale.map((root, degree) => {
-    const chord = [root]
-
-    for (let i = 1; i < intervals; i++) {
-      const index = degree + i * 2
-
-      const note =
-        index > 7 // note is in next scale
-          ? scale[index % 7] + 12
-          : scale[index]
-
-      // do not go outside the keyboard
-      if (note < 88) {
-        chord.push(note)
-      }
-    }
-
-    return invertChord(chord, inversion)
-  })
 }

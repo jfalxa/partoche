@@ -1,8 +1,8 @@
 import React from 'react'
-import useKeyboard from '../hooks/keyboard'
 import { number, bool, arrayOf, func } from 'prop-types'
 
-const BLACKS = [1, 3, 6, 8, 10]
+import KEYS, { BLACKS } from '../constants/keys'
+import useKeyboard from '../hooks/keyboard'
 
 function isBlack(key) {
   return BLACKS.includes((9 + key) % 12)
@@ -65,15 +65,12 @@ Key.propTypes = {
   highlighted: bool
 }
 
-// 0..87
-const KEYS = [...Array(88).keys()]
-
 const Keyboard = ({ value, highlighted = [], onChange, ...props }) => {
   const keyboard = useKeyboard(value, onChange)
 
   return (
     <Board {...props}>
-      {KEYS.map(key => (
+      {KEYS.map(({ key }) => (
         <Key
           key={key}
           value={key}

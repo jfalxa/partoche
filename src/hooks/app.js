@@ -1,8 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 
 import createSynth from '../utils/synth'
-import scale from '../music/scales'
-import { listScaleChords } from '../music/chords'
+import { scale, listScaleChords } from '../music/scales'
 
 const play = createSynth()
 
@@ -68,8 +67,8 @@ export default function useApp() {
   if (!playing && tick > 0) setTick(0)
 
   // set the pressed key as root if not playing
-  if (!playing && keys.length === 1 && Math.min(keys[0], 75) !== root) {
-    setRoot(Math.min(keys[0], 75))
+  if (!playing && keys.length === 1 && keys[0] !== root) {
+    setRoot(keys[0])
   }
 
   const score = useScore(root, mode, intervals, inversion)
@@ -80,6 +79,10 @@ export default function useApp() {
   function clear() {
     setKeys([])
     setRoot(-1)
+  }
+
+  function togglePlaying() {
+    setPlaying(!playing)
   }
 
   return {
@@ -98,6 +101,6 @@ export default function useApp() {
     setIntervals,
     setInversion,
     setTick,
-    setPlaying
+    togglePlaying
   }
 }
