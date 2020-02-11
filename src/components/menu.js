@@ -9,14 +9,14 @@ const disableAfter = max => option => ({ disabled: option >= max })
 
 const Menu = ({ app }) => (
   <Fragment>
-    <Select // prettier-ignore
+    <Select
       options={KEYS}
       optionProps={shiftValue(-1)}
       value={app.root}
       onChange={app.setRoot}
     />
 
-    <Select // prettier-ignore
+    <Select
       disabled={app.root < 0}
       options={MODES}
       optionProps={shiftValue(-1)}
