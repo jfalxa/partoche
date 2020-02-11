@@ -19,7 +19,7 @@
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "jest": "^25.1.0",
-    "parcel": "^2.0.0-alpha.3.2"
+    "parcel": "^2.0.0-nightly.90"
   },
   "dependencies": {
     "@emotion/core": "^10.0.27",
