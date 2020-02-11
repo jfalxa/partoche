@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 
 import createSynth from '../utils/synth'
-import { scale, listScaleChords } from '../music/scales'
+import { scale, listScaleChords, limitKeys } from '../music/scales'
 
 const play = createSynth()
 
@@ -10,7 +10,11 @@ function useScore(root, mode, intervals, inversion) {
     if (root < 0) return []
     if (mode < 0) return [[root]]
 
-    return listScaleChords(scale(root, mode), intervals, inversion)
+    const keys = scale(root, mode)
+    const chords = listScaleChords(keys, intervals, inversion)
+    const score = limitKeys(chords)
+
+    return score
   }, [root, mode, intervals, inversion])
 }
 
