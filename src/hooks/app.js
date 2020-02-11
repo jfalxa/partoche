@@ -16,10 +16,15 @@ function useScore(root, mode, intervals, inversion) {
 
 function useTickProgression(keys, score, setTick) {
   const direction = useRef(1)
+  const lastScore = useRef(score)
 
   useEffect(() => {
     setTick(tick => {
-      if (score.length === 0) return 0
+      // reset the tick if the score is unset or changes
+      if (score.length === 0 || lastScore.current !== score) {
+        lastScore.current = score
+        return 0
+      }
 
       const pressedKeys = [...keys].sort().join()
       const expectedKeys = score[tick].sort().join()
@@ -62,9 +67,6 @@ export default function useApp() {
 
   // stop playing if root is unset
   if (root < 0 && playing) setPlaying(false)
-
-  // reset tick if playing stops
-  if (!playing && tick > 0) setTick(0)
 
   // set the pressed key as root if not playing
   if (!playing && keys.length === 1 && keys[0] !== root) {
