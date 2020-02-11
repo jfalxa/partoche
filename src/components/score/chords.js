@@ -1,6 +1,7 @@
 import React from 'react'
-import { number, arrayOf, shape, string, bool } from 'prop-types'
+import { number, arrayOf, string, bool } from 'prop-types'
 
+import { keyToNote } from '../../utils/conversion'
 import { WholeNote } from './notes'
 
 function collides(a, b) {
@@ -8,7 +9,8 @@ function collides(a, b) {
   return Math.abs(b.value - a.value) === 1
 }
 
-export const Chord = ({ tick, pressed, highlighted, clef, notes }) => {
+export const Chord = ({ tick, pressed, highlighted, clef, keys }) => {
+  const notes = keys.map(keyToNote)
   const color = pressed ? 'limegreen' : highlighted ? 'gray' : 'black'
 
   return (
@@ -32,5 +34,5 @@ Chord.propTypes = {
   clef: string,
   pressed: bool,
   highlighted: bool,
-  notes: arrayOf(shape(WholeNote.propTypes))
+  keys: arrayOf(number)
 }

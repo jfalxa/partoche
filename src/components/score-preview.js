@@ -1,7 +1,6 @@
 import React from 'react'
 import { number, arrayOf } from 'prop-types'
 
-import { keyToNote } from '../utils/conversion'
 import { Score, Staff, GClef, FClef, Chord } from './score'
 
 // check on which staff it should be more appropriate to display the full progression
@@ -22,13 +21,11 @@ const ScorePreview = ({ tick, keys, score }) => (
             clef="g"
             tick={i}
             highlighted={tick === i}
-            notes={chord.map(keyToNote)}
+            keys={chord}
           />
         ))}
 
-      {shouldBeG([keys]) && (
-        <Chord pressed clef="g" tick={tick} notes={keys.map(keyToNote)} />
-      )}
+      {shouldBeG([keys]) && <Chord pressed clef="g" tick={tick} keys={keys} />}
     </Staff>
 
     <Staff y={178}>
@@ -40,13 +37,11 @@ const ScorePreview = ({ tick, keys, score }) => (
             clef="f"
             tick={i}
             highlighted={tick === i}
-            notes={chord.map(keyToNote)}
+            keys={chord}
           />
         ))}
 
-      {!shouldBeG([keys]) && (
-        <Chord pressed clef="f" tick={tick} notes={keys.map(keyToNote)} />
-      )}
+      {!shouldBeG([keys]) && <Chord pressed clef="f" tick={tick} keys={keys} />}
     </Staff>
   </Score>
 )
