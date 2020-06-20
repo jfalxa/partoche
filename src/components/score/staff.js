@@ -10,7 +10,7 @@ export const Line = ({ level, ...props }) => {
       x2="100%"
       y1={y}
       y2={y}
-      strokeWidth="0.5px"
+      strokeWidth="1px"
       shapeRendering="crispEdges"
       {...props}
     />
